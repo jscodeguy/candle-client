@@ -6,6 +6,12 @@ const messages = {
 	signOutSuccess: 'Come back soon!',
 	changePasswordSuccess: 'Password changed successfully!',
 	changePasswordFailure:'Failed to change passwords. Check your old password and try again.',
+	indexCandleSuccess: "Candles retrieved successfully!",
+	indexCandleFailure: "Failed to get Candles. Please try again.",
+	showCandleSuccess: "Candle retrieved successfully!",
+	showCandleFailure: "Failed to get Candle. Please try again.",
+	createCandleSuccess: "Candle created successfully!",
+	createCandleFailure: "Something went wrong. Please try again."
 }
 
 module.exports = messages
