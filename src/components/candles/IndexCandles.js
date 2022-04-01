@@ -53,7 +53,7 @@ const IndexCandles = (props) => {
                 
                 <Card.Body>
                     <Card.Text>
-                        <Link to={`/candles/${candle.id}`}>View {candle.name}</Link>
+                        <Link to={`/candles/${candle._id}`}>View {candle.name}</Link>
                     </Card.Text>
                 </Card.Body>
             </Card>
