@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { getOneCandle, removeCandle } from '../../api/candles'
-import { useParams } from 'react-router-dom'
+import { getOneCandle, updateCandle, removeCandle } from '../../api/candles'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Spinner, Container, Card, Button } from 'react-bootstrap'
 import {showCandleSuccess, showCandleFailure} from '../shared/AutoDismissAlert/messages'
-// import EditCandleModal from './EditCandleModal'
+import EditCandleModal from './EditCandleModal'
 
 const ShowCandle = (props) => {
 
@@ -12,6 +12,7 @@ const ShowCandle = (props) => {
     const [updated, setUpdated] = useState(false)
     const {user, msgAlert} = props
     const { id } = useParams()
+    const navigate = useNavigate()
     console.log('id in showCandle', id)
     // empty dependency array in useEffect to act like component did mount
     useEffect(() => {
@@ -33,6 +34,24 @@ const ShowCandle = (props) => {
             })
     }, [updated])
 
+    const removeTheCandle = () => {
+        removeCandle(user, candle._id)
+            .then(() => {
+                msgAlert({
+                    heading: 'pet politely removed!',
+                    message: 'theyre gone',
+                    variant: 'success',
+                })
+            })
+            .then(() => {navigate(`/`)})
+            .catch(() => {
+                msgAlert({
+                    heading: 'something went wrong',
+                    message: 'that aint it',
+                    variant: 'danger',
+                })
+            })
+    }
     if (!candle) {
         return (
             <Container fluid className="justify-content-center">
@@ -59,22 +78,22 @@ const ShowCandle = (props) => {
                         <Button onClick={() => setModalOpen(true)} className="m-2" variant="warning">
                             Edit Candle
                         </Button>
-                        <Button className="m-2" variant="danger">
+                        <Button onClick={() => removeTheCandle()} className="m-2" variant="danger">
                             Delete Candle
                         </Button>
 
                     </Card.Footer>
                 </Card>
             </Container>
-            {/* <EditCandleModal 
+            <EditCandleModal 
                 candle={candle}
                 show={modalOpen}
                 user={user}
                 msgAlert={msgAlert}
                 triggerRefresh={() => setUpdated(prev => !prev)}
-                updateCandle={updateCandle}
                 handleClose={() => setModalOpen(false)}
-            /> */}
+                updateCandle={updateCandle}
+            />
         </>
     )
 }
