@@ -13,7 +13,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import ShowCandle from './components/candles/ShowCandles'
-// import CreatePet from './components/pets/CreatePet'
+import CreateCandle from './components/candles/CreateCandle'
 
 const App = () => {
 
@@ -70,6 +70,14 @@ const App = () => {
                 <ChangePassword msgAlert={msgAlert} user={user} />
               </RequireAuth>}
           />
+		  <Route
+					path='/addCandle'
+					element={
+						<RequireAuth user={user}>	
+							<CreateCandle msgAlert={msgAlert} user={user} />
+						</RequireAuth>
+					}
+				/>
 				<Route
 					path='/candles/:id'
 					element={<ShowCandle msgAlert={msgAlert} user={user} />}
